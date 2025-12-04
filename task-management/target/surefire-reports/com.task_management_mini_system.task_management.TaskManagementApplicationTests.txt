@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.task_management_mini_system.task_management.TaskManagementApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.547 s -- in com.task_management_mini_system.task_management.TaskManagementApplicationTests
