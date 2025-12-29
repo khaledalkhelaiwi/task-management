@@ -28,7 +28,7 @@ public class TaskController {
         String username = jwtUtil.extractUsername(token);
 
 
-        Task saved = taskService.createTask(task, username);
+        Task saved = taskService.createTask(task);
 
         return ResponseEntity.ok(saved);
     }
@@ -51,8 +51,7 @@ public class TaskController {
     
 
     @PutMapping("/api/tasks/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id,
-                                           @RequestBody Task updatedTask) {
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
         return ResponseEntity.ok(taskService.updateTask(id, updatedTask));
     }
     

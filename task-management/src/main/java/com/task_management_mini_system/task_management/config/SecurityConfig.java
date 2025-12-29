@@ -52,8 +52,12 @@ public class SecurityConfig {
                     .requestMatchers("/api/auth/**").permitAll()
 
                     .requestMatchers("/h2-console/**").permitAll()
+
                     .requestMatchers("/api/tasks/all").hasRole("ADMIN")
                     .requestMatchers("/api/tasks/**").authenticated()
+
+                    .requestMatchers("/api/reports/tasks/all").hasRole("ADMIN")
+                    .requestMatchers("/api/reports/**").authenticated()
 
                     .anyRequest().permitAll()
             )
