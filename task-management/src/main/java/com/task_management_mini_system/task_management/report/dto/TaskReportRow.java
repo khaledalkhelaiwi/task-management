@@ -1,6 +1,5 @@
 package com.task_management_mini_system.task_management.report.dto;
 
-
 public class TaskReportRow {
 
     private Long id;

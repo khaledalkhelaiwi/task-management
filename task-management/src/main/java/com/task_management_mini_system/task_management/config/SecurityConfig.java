@@ -43,14 +43,19 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+            .cors(cors -> {})  
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/auth/**").permitAll()
 
+           
+                    .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+
+                    .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/h2-console/**").permitAll()
 
                     .requestMatchers("/api/tasks/all").hasRole("ADMIN")
@@ -69,4 +74,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }
