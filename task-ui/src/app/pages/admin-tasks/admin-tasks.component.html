@@ -1,0 +1,109 @@
+<div class="nav">
+  <div class="brand">Task System (Admin)</div>
+
+  <div class="nav-actions">
+    <button class="btn secondary" routerLink="/home">Home</button>
+
+    <button class="btn" (click)="downloadPdf()">
+      {{ isDownloading ? 'Downloading...' : 'Download PDF' }}
+    </button>
+
+    <button class="btn danger" routerLink="/login">Logout</button>
+  </div>
+</div>
+
+<div class="page">
+  <h2>All Tasks</h2>
+  <p class="hint">Admin can create, edit, delete tasks and change status.</p>
+
+  <div class="card">
+    <h3>Create Task</h3>
+
+    <div class="grid">
+      <div>
+        <label>Title</label>
+        <input [(ngModel)]="form.title" placeholder="Task title" />
+      </div>
+
+      <div>
+        <label>User ID</label>
+        <input [(ngModel)]="form.userId" placeholder="e.g. 1" />
+      </div>
+
+      <div>
+        <label>Status</label>
+        <select class="status-pill" [ngClass]="form.status" [(ngModel)]="form.status">
+          <option *ngFor="let s of statuses" [ngValue]="s">{{ s }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <label>Description</label>
+      <textarea [(ngModel)]="form.description" placeholder="Task description"></textarea>
+    </div>
+
+    <button class="btn" style="margin-top: 12px;" (click)="createTask()">Create</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>User</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngIf="isLoading">
+          <td colspan="7">Loading...</td>
+        </tr>
+
+        <tr *ngIf="!isLoading && errorMessage">
+          <td colspan="7">{{ errorMessage }}</td>
+        </tr>
+
+        <tr *ngIf="!isLoading && !errorMessage && tasks.length === 0">
+          <td colspan="7">No tasks found.</td>
+        </tr>
+
+        <tr *ngFor="let t of tasks; let i = index">
+          <td>{{ i + 1 }}</td>
+
+          <td>{{ t.user?.username || ('User #' + t.user?.id) }}</td>
+
+          <td>
+            <input class="inline" [(ngModel)]="t.title" />
+          </td>
+
+          <td>
+            <input class="inline" [(ngModel)]="t.description" />
+          </td>
+
+          <td>
+            <select
+              class="status-pill"
+              [ngClass]="t.status"
+              [ngModel]="t.status"
+              (ngModelChange)="changeStatus(t, $event)">
+              <option *ngFor="let s of statuses" [ngValue]="s">{{ s }}</option>
+            </select>
+          </td>
+
+          <td>{{ t.createdAt }}</td>
+
+          <td class="actions">
+            <button class="btn small secondary" (click)="saveTask(t)">Save</button>
+            <button class="btn small danger" (click)="deleteTask(t.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

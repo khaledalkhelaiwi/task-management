@@ -1,0 +1,63 @@
+<div class="nav">
+    <div class="brand">Task System</div>
+
+    <div class="nav-actions">
+        <button class="btn secondary" routerLink="/home">Home</button>
+
+        <button class="btn" (click)="downloadPdf()">
+            {{ isDownloading ? 'Downloading...' : 'Download PDF' }}
+        </button>
+
+        <button class="btn danger" routerLink="/login">Logout</button>
+    </div>
+</div>
+
+<div class="page">
+    <h2>My Tasks</h2>
+    <p class="hint">These are the tasks assigned to you.</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngIf="isLoading">
+                    <td colspan="5">Loading...</td>
+                </tr>
+
+                <tr *ngIf="!isLoading && errorMessage">
+                    <td colspan="5">{{ errorMessage }}</td>
+                </tr>
+
+                <tr *ngIf="!isLoading && !errorMessage && tasks.length === 0">
+                    <td colspan="5">No tasks found.</td>
+                </tr>
+
+                <tr *ngFor="let t of tasks; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ t.title }}</td>
+                    <td>{{ t.description }}</td>
+
+                    <td>
+                        <select class="status-pill" [ngClass]="t.status" [ngModel]="t.status"
+                            (ngModelChange)="changeStatus(t, $event)">
+                            <option *ngFor="let s of statuses" [ngValue]="s">{{ s }}</option>
+                        </select>
+
+                    </td>
+
+                    <td>{{ t.createdAt }}</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>

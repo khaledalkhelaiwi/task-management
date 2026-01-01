@@ -1,0 +1,28 @@
+<div class="nav">
+  <div class="brand">Task System</div>
+
+  <div class="nav-actions">
+    <button class="btn secondary small" routerLink="/tasks/my">My Tasks</button>
+    <button class="btn secondary small" routerLink="/tasks/all">Admin Panel</button>
+    <button class="btn danger" routerLink="/login">Logout</button>
+  </div>
+</div>
+
+<div class="page">
+  <h2>Home</h2>
+  <p class="hint">Choose where you want to go.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>My Tasks</h3>
+      <p>Open your tasks list.</p>
+      <button class="btn" routerLink="/tasks/my">Open</button>
+    </div>
+
+    <div class="card">
+      <h3>Admin Panel</h3>
+      <p>View all tasks (admin only).</p>
+      <button class="btn" routerLink="/tasks/all">Open</button>
+    </div>
+  </div>
+</div>
